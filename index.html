@@ -1123,10 +1123,7 @@ function setLang(code) {
     btn.classList.toggle('active', btn.textContent.toLowerCase() === code);
   });
 
-  // Keep calculator links in sync with current language
-  document.querySelectorAll('a[href*="costs.html"]').forEach(a => {
-    a.href = 'costs.html?lang=' + code;
-  });
+  localStorage.setItem('mizan_lang', code);
 }
 
 // Init

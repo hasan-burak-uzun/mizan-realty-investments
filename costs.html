@@ -745,7 +745,7 @@ document.getElementById('monthlyRent').addEventListener('input', buildTable);
 document.getElementById('mgmtPct').addEventListener('input', buildTable);
 document.getElementById('searchBox').addEventListener('input', buildTable);
 
-const initLang = new URLSearchParams(window.location.search).get('lang');
+const initLang = localStorage.getItem('mizan_lang');
 setLang(['en','tr','ar','ur'].includes(initLang) ? initLang : 'en');
 </script>
 </body>
