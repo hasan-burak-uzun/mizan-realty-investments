@@ -745,7 +745,8 @@ document.getElementById('monthlyRent').addEventListener('input', buildTable);
 document.getElementById('mgmtPct').addEventListener('input', buildTable);
 document.getElementById('searchBox').addEventListener('input', buildTable);
 
-setLang('en');
+const initLang = new URLSearchParams(window.location.search).get('lang');
+setLang(['en','tr','ar','ur'].includes(initLang) ? initLang : 'en');
 </script>
 </body>
 </html>
