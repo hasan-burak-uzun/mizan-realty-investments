@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>US State Investment Cost Guide — Mizan Realty Investments</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0B1F3A; --navy2: #152D50; --gold: #C9A84C; --gold2: #E8C96A;
+      --light: #F4F6F9; --text: #2C3E50; --muted: #6B7280; --white: #FFFFFF;
+      --green: #10B981; --yellow: #F59E0B; --red: #EF4444;
+      --green-bg: #ECFDF5; --yellow-bg: #FFFBEB; --red-bg: #FEF2F2;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--light); }
+
+    /* NAV */
+    nav {
+      background: var(--navy); padding: 0 5vw; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; }
+    .logo span { color: var(--gold); }
+    .nav-back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%); padding: 60px 5vw 50px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); color: #fff; margin-bottom: 0.75rem; }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 600px; line-height: 1.7; }
+    .disclaimer { margin-top: 1rem; font-size: 0.75rem; color: rgba(255,255,255,0.45); font-style: italic; }
+
+    /* CALCULATOR */
+    .calc-section { background: var(--white); border-bottom: 1px solid #E5E7EB; padding: 32px 5vw; }
+    .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 900px; }
+    .calc-field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+    .calc-field input {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #D1D5DB; border-radius: 8px;
+      font-size: 1rem; font-family: inherit; color: var(--text); background: var(--light);
+      transition: border-color 0.2s;
+    }
+    .calc-field input:focus { outline: none; border-color: var(--gold); background: #fff; }
+    .calc-note { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* FILTERS */
+    .filter-bar { padding: 20px 5vw; background: var(--white); border-bottom: 1px solid #E5E7EB; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .search-box { padding: 9px 14px; border: 1.5px solid #D1D5DB; border-radius: 8px; font-size: 0.9rem; font-family: inherit; width: 220px; }
+    .search-box:focus { outline: none; border-color: var(--gold); }
+    .filter-btn { padding: 7px 16px; border-radius: 20px; border: 1.5px solid #D1D5DB; background: transparent; font-size: 0.8rem; font-family: inherit; cursor: pointer; color: var(--muted); transition: all 0.2s; }
+    .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .filter-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+    .result-count { font-size: 0.82rem; color: var(--muted); margin-left: auto; }
+
+    /* SUMMARY CARDS */
+    .summary-strip { padding: 24px 5vw; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+    .sum-card { background: var(--white); border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 8px rgba(0,0,0,0.06); text-align: center; }
+    .sum-card .val { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); }
+    .sum-card .lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.7px; margin-top: 2px; }
+    .sum-card .sub { font-size: 0.8rem; color: var(--gold); font-weight: 600; margin-top: 2px; }
+
+    /* TABLE */
+    .table-wrap { padding: 0 5vw 60px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); font-size: 0.875rem; }
+    thead { background: var(--navy); color: #fff; }
+    th { padding: 14px 16px; text-align: left; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.7px; text-transform: uppercase; white-space: nowrap; cursor: pointer; user-select: none; }
+    th:hover { background: var(--navy2); }
+    th.sorted-asc::after { content: " ↑"; color: var(--gold); }
+    th.sorted-desc::after { content: " ↓"; color: var(--gold); }
+    td { padding: 12px 16px; border-bottom: 1px solid #F3F4F6; white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #FAFBFD; }
+    tr.hidden { display: none; }
+
+    .state-cell { font-weight: 600; color: var(--navy); }
+    .abbr { color: var(--muted); font-size: 0.78rem; margin-left: 4px; }
+
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; }
+    .pill-green { background: var(--green-bg); color: #065F46; }
+    .pill-yellow { background: var(--yellow-bg); color: #92400E; }
+    .pill-red { background: var(--red-bg); color: #991B1B; }
+
+    .score-bar { display: flex; align-items: center; gap: 8px; }
+    .score-dots { display: flex; gap: 3px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #E5E7EB; }
+    .dot.on.green { background: var(--green); }
+    .dot.on.yellow { background: var(--yellow); }
+    .dot.on.red { background: var(--red); }
+
+    .dollar { font-weight: 600; }
+    .dollar.good { color: var(--green); }
+    .dollar.mid { color: var(--yellow); }
+    .dollar.bad { color: var(--red); }
+
+    .notes-cell { color: var(--muted); font-size: 0.78rem; max-width: 220px; white-space: normal; line-height: 1.4; }
+
+    /* LEGEND */
+    .legend { padding: 0 5vw 12px; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* TOP PICKS */
+    .picks-section { padding: 40px 5vw; }
+    .picks-section h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .picks-section p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .picks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .pick-card { background: var(--white); border-radius: 10px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 8px rgba(0,0,0,0.06); border-left: 4px solid var(--green); }
+    .pick-card.avoid { border-left-color: var(--red); }
+    .pick-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+    .pick-card .why { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* FOREIGN INVESTOR NOTES */
+    .fi-section { background: var(--navy); padding: 40px 5vw; }
+    .fi-section h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .fi-section p { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 650px; }
+    .fi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .fi-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 1.25rem; }
+    .fi-card h3 { color: var(--gold); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .fi-card p { color: rgba(255,255,255,0.65); font-size: 0.82rem; line-height: 1.6; }
+
+    footer { background: #07121F; padding: 1.5rem 5vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+    .footer-logo span { color: var(--gold); }
+    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+
+    @media (max-width: 640px) { th, td { padding: 10px 10px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Mizan<span> Realty</span> Investments</a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="hero">
+  <h1>US Real Estate Investment <em>Cost Guide</em></h1>
+  <p>Enter your target property value and monthly rent to see estimated acquisition costs, annual property taxes, and rental management fees across all 50 states.</p>
+  <p class="disclaimer">* Estimates based on state averages. Actual costs vary by county, city, and individual transaction. Consult Mizan Realty for precise figures.</p>
+</div>
+
+<!-- CALCULATOR INPUTS -->
+<div class="calc-section">
+  <div class="calc-grid">
+    <div class="calc-field">
+      <label>Purchase Price ($)</label>
+      <input type="number" id="purchasePrice" value="500000" min="50000" max="10000000" step="10000" />
+      <div class="calc-note">Enter your target property value</div>
+    </div>
+    <div class="calc-field">
+      <label>Monthly Rent ($)</label>
+      <input type="number" id="monthlyRent" value="2500" min="500" max="50000" step="100" />
+      <div class="calc-note">Expected monthly rental income</div>
+    </div>
+    <div class="calc-field">
+      <label>Management Fee (%)</label>
+      <input type="number" id="mgmtPct" value="10" min="6" max="15" step="0.5" />
+      <div class="calc-note">Typical range: 8–12% of rent</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY STRIP -->
+<div class="summary-strip" id="summaryStrip">
+  <div class="sum-card">
+    <div class="val" id="sumClosing">—</div>
+    <div class="lbl">Avg Closing Cost</div>
+    <div class="sub" id="sumClosingPct">—</div>
+  </div>
+  <div class="sum-card">
+    <div class="val" id="sumTax">—</div>
+    <div class="lbl">Avg Annual Prop Tax</div>
+    <div class="sub" id="sumTaxPct">—</div>
+  </div>
+  <div class="sum-card">
+    <div class="val" id="sumMgmt">—</div>
+    <div class="lbl">Avg Annual Mgmt Fee</div>
+    <div class="sub">Based on your rent input</div>
+  </div>
+  <div class="sum-card">
+    <div class="val" id="sumBestTax">—</div>
+    <div class="lbl">Lowest Prop Tax State</div>
+    <div class="sub" id="sumBestTaxName">—</div>
+  </div>
+  <div class="sum-card">
+    <div class="val" id="sumWorstTax">—</div>
+    <div class="lbl">Highest Prop Tax State</div>
+    <div class="sub" id="sumWorstTaxName">—</div>
+  </div>
+</div>
+
+<!-- TOP PICKS -->
+<div class="picks-section">
+  <h2>Best States for International Investors</h2>
+  <p>Ranked by combination of low property tax, landlord-friendly laws, and no/low state income tax on rental income.</p>
+  <div class="picks-grid">
+    <div class="pick-card">
+      <h3>🏆 Florida</h3>
+      <div class="why">No state income tax · Landlord-friendly eviction laws · No transfer tax · Strong rental demand</div>
+    </div>
+    <div class="pick-card">
+      <h3>🥈 Nevada</h3>
+      <div class="why">No state income tax · Low property tax (0.60%) · Landlord-friendly · Growing market</div>
+    </div>
+    <div class="pick-card">
+      <h3>🥉 Georgia</h3>
+      <div class="why">Low closing costs · Landlord-friendly · Moderate property tax · High rental demand in Atlanta</div>
+    </div>
+    <div class="pick-card">
+      <h3>⭐ Arizona</h3>
+      <div class="why">Very low income tax (2.5%) · Low property tax · Landlord-friendly · Strong population growth</div>
+    </div>
+    <div class="pick-card">
+      <h3>⭐ Texas</h3>
+      <div class="why">No income tax · Landlord-friendly · Warning: high property tax (1.80%) offset by high rents</div>
+    </div>
+    <div class="pick-card avoid">
+      <h3>⚠️ Avoid: New Jersey</h3>
+      <div class="why">Highest property tax (2.49%) · High income tax (10.75%) · Tenant-friendly laws · High closing costs</div>
+    </div>
+    <div class="pick-card avoid">
+      <h3>⚠️ Avoid: Illinois</h3>
+      <div class="why">Very high property tax (2.27%) · Tenant-friendly · Fiscal uncertainty · Chicago vacancy risk</div>
+    </div>
+    <div class="pick-card avoid">
+      <h3>⚠️ Caution: California</h3>
+      <div class="why">Highest income tax (13.3%) · Strict tenant protections · But: strong appreciation potential</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <input class="search-box" id="searchBox" placeholder="Search state..." type="text" />
+  <button class="filter-btn active" onclick="filterLandlord('all', this)">All States</button>
+  <button class="filter-btn" onclick="filterLandlord('High', this)">Landlord Friendly</button>
+  <button class="filter-btn" onclick="filterLandlord('none', this)">No Income Tax</button>
+  <button class="filter-btn" onclick="filterLandlord('low_tax', this)">Low Prop Tax</button>
+  <span class="result-count" id="resultCount">50 states</span>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Low / Favorable</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Medium</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> High / Watch Out</div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table id="stateTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">State</th>
+        <th onclick="sortTable(1)">Prop Tax Rate</th>
+        <th onclick="sortTable(2)">Annual Prop Tax</th>
+        <th onclick="sortTable(3)">Closing Costs</th>
+        <th onclick="sortTable(4)">Est. Closing $</th>
+        <th onclick="sortTable(5)">Annual Mgmt Fee</th>
+        <th onclick="sortTable(6)">State Income Tax</th>
+        <th onclick="sortTable(7)">Landlord Laws</th>
+        <th>Investor Score</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+<!-- FOREIGN INVESTOR NOTES -->
+<div class="fi-section">
+  <h2>Foreign Investor Considerations</h2>
+  <p>Beyond state-level costs, international buyers face additional US federal requirements regardless of which state they invest in.</p>
+  <div class="fi-grid">
+    <div class="fi-card">
+      <h3>FIRPTA Withholding</h3>
+      <p>When you sell, 15% of the sale price is withheld by the IRS. This is a credit toward your tax liability, not an extra tax — but plan your cash flow accordingly.</p>
+    </div>
+    <div class="fi-card">
+      <h3>LLC Structure</h3>
+      <p>Most foreign investors hold US property through an LLC for liability protection and tax efficiency. Setup costs $500–$2,000 depending on the state. Wyoming and Delaware LLCs are popular choices.</p>
+    </div>
+    <div class="fi-card">
+      <h3>ITIN Requirement</h3>
+      <p>You need an Individual Taxpayer Identification Number (ITIN) to file US taxes. Mizan Realty can connect you with the right CPA to obtain one before closing.</p>
+    </div>
+    <div class="fi-card">
+      <h3>Foreign National Mortgage</h3>
+      <p>Non-US residents can get mortgages, but typically need 25–40% down payment. Rates are 0.5–1.5% higher than resident rates. Our mortgage specialist handles this.</p>
+    </div>
+    <div class="fi-card">
+      <h3>Wire Transfer & Escrow</h3>
+      <p>Large international wire transfers trigger FinCEN reporting. Plan for 3–5 business days for wire settlement. Having a US bank account simplifies ongoing management.</p>
+    </div>
+    <div class="fi-card">
+      <h3>Tax Treaty Benefits</h3>
+      <p>The US has tax treaties with Turkey and many other countries that may reduce withholding rates on rental income. A cross-border tax specialist can identify your savings.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Mizan<span> Realty</span> Investments</div>
+  <p>© 2025 Mizan Realty Investments. Estimates for informational purposes only.</p>
+</footer>
+
+<script>
+const STATES = [
+  { name:"Alabama",       abbr:"AL", tax:0.41, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.0,  noIncomeTax:false, notes:"Very landlord-friendly eviction laws. Low overall cost of entry." },
+  { name:"Alaska",        abbr:"AK", tax:1.04, closeLow:1.5, closeHigh:2.5, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No state income tax. No sales tax. Remote market — limited rental demand." },
+  { name:"Arizona",       abbr:"AZ", tax:0.63, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:2.5,  noIncomeTax:false, notes:"Flat 2.5% income tax. Strong Phoenix/Scottsdale investor market." },
+  { name:"Arkansas",      abbr:"AR", tax:0.62, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.9,  noIncomeTax:false, notes:"Low entry costs. Landlord-friendly laws. Smaller rental market." },
+  { name:"California",    abbr:"CA", tax:0.75, closeLow:2.5, closeHigh:3.5, landlord:"Low",    incomeTax:13.3, noIncomeTax:false, notes:"Highest income tax in US. Strong tenant protections. High appreciation potential in LA/SF/SD." },
+  { name:"Colorado",      abbr:"CO", tax:0.51, closeLow:2.0, closeHigh:3.0, landlord:"Medium", incomeTax:4.4,  noIncomeTax:false, notes:"Very low property tax. Flat 4.4% income tax. Denver strong rental market." },
+  { name:"Connecticut",   abbr:"CT", tax:2.14, closeLow:3.0, closeHigh:5.0, landlord:"Low",    incomeTax:6.99, noIncomeTax:false, notes:"High property tax and closing costs. Tenant-friendly. Proximity to NYC." },
+  { name:"Delaware",      abbr:"DE", tax:0.57, closeLow:3.5, closeHigh:5.0, landlord:"Medium", incomeTax:6.6,  noIncomeTax:false, notes:"Attorney-required state adds closing cost. Popular for LLC formation." },
+  { name:"Florida",       abbr:"FL", tax:0.89, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No state income tax. No transfer tax. Top pick for investors. Orlando, Miami, Tampa strong." },
+  { name:"Georgia",       abbr:"GA", tax:0.92, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.75, noIncomeTax:false, notes:"Landlord-friendly. Atlanta is top US rental market. Low closing costs." },
+  { name:"Hawaii",        abbr:"HI", tax:0.32, closeLow:2.5, closeHigh:3.5, landlord:"Low",    incomeTax:11.0, noIncomeTax:false, notes:"Lowest property tax in US. But very high income tax and entry prices." },
+  { name:"Idaho",         abbr:"ID", tax:0.69, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.8,  noIncomeTax:false, notes:"Fast-growing Boise market. Landlord-friendly. Low property tax." },
+  { name:"Illinois",      abbr:"IL", tax:2.27, closeLow:2.5, closeHigh:3.5, landlord:"Low",    incomeTax:4.95, noIncomeTax:false, notes:"2nd highest property tax. Tenant-friendly Chicago. Fiscal risk." },
+  { name:"Indiana",       abbr:"IN", tax:0.85, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:3.23, noIncomeTax:false, notes:"Very landlord-friendly. Low income tax. Affordable Indianapolis market." },
+  { name:"Iowa",          abbr:"IA", tax:1.57, closeLow:2.0, closeHigh:3.0, landlord:"Medium", incomeTax:6.0,  noIncomeTax:false, notes:"High property tax. Stable but limited growth market." },
+  { name:"Kansas",        abbr:"KS", tax:1.41, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.7,  noIncomeTax:false, notes:"Landlord-friendly. Affordable market. Kansas City straddles MO border." },
+  { name:"Kentucky",      abbr:"KY", tax:0.86, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.0,  noIncomeTax:false, notes:"Flat 5% income tax. Landlord-friendly. Low cost of entry." },
+  { name:"Louisiana",     abbr:"LA", tax:0.55, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:6.0,  noIncomeTax:false, notes:"Low property tax. New Orleans rental market driven by tourism." },
+  { name:"Maine",         abbr:"ME", tax:1.36, closeLow:2.5, closeHigh:3.5, landlord:"Medium", incomeTax:7.15, noIncomeTax:false, notes:"Attorney-required state. Higher taxes but strong vacation rental market." },
+  { name:"Maryland",      abbr:"MD", tax:1.09, closeLow:3.0, closeHigh:4.5, landlord:"Medium", incomeTax:5.75, noIncomeTax:false, notes:"High closing costs. DC metro proximity. Transfer tax included." },
+  { name:"Massachusetts", abbr:"MA", tax:1.23, closeLow:3.0, closeHigh:4.5, landlord:"Low",    incomeTax:5.0,  noIncomeTax:false, notes:"Tenant-friendly Boston. High entry prices. Strong long-term appreciation." },
+  { name:"Michigan",      abbr:"MI", tax:1.54, closeLow:2.5, closeHigh:3.5, landlord:"Medium", incomeTax:4.25, noIncomeTax:false, notes:"High property tax. Detroit distressed market and Grand Rapids growth." },
+  { name:"Minnesota",     abbr:"MN", tax:1.12, closeLow:2.5, closeHigh:3.5, landlord:"Low",    incomeTax:9.85, noIncomeTax:false, notes:"High income tax. Tenant-friendly. Minneapolis strong rental demand." },
+  { name:"Mississippi",   abbr:"MS", tax:0.65, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.0,  noIncomeTax:false, notes:"Low property tax. Landlord-friendly. Lower rental yields than national avg." },
+  { name:"Missouri",      abbr:"MO", tax:1.01, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:5.4,  noIncomeTax:false, notes:"Landlord-friendly. Kansas City and St. Louis strong markets." },
+  { name:"Montana",       abbr:"MT", tax:0.84, closeLow:2.0, closeHigh:3.0, landlord:"Medium", incomeTax:6.75, noIncomeTax:false, notes:"No sales tax. Growing Bozeman/Missoula markets. Vacation rental opportunity." },
+  { name:"Nebraska",      abbr:"NE", tax:1.73, closeLow:2.0, closeHigh:3.0, landlord:"Medium", incomeTax:6.84, noIncomeTax:false, notes:"High property tax. Omaha stable market. Reducing income tax rates." },
+  { name:"Nevada",        abbr:"NV", tax:0.60, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No state income tax. Low property tax. Las Vegas strong short-term rental market." },
+  { name:"New Hampshire", abbr:"NH", tax:2.18, closeLow:2.5, closeHigh:3.5, landlord:"Medium", incomeTax:0,    noIncomeTax:true,  notes:"No income tax on wages/rent. But very high property tax — offset each other." },
+  { name:"New Jersey",    abbr:"NJ", tax:2.49, closeLow:3.0, closeHigh:4.5, landlord:"Low",    incomeTax:10.75,noIncomeTax:false, notes:"Highest property tax in US. High income tax. Tenant-friendly laws. Caution." },
+  { name:"New Mexico",    abbr:"NM", tax:0.80, closeLow:2.0, closeHigh:3.0, landlord:"Medium", incomeTax:5.9,  noIncomeTax:false, notes:"Growing Albuquerque and Santa Fe markets. Moderate costs overall." },
+  { name:"New York",      abbr:"NY", tax:1.72, closeLow:3.5, closeHigh:6.0, landlord:"Low",    incomeTax:10.9, noIncomeTax:false, notes:"NYC highest closing costs in US. Strict rent control. Strong appreciation but high cost." },
+  { name:"North Carolina",abbr:"NC", tax:0.82, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:4.99, noIncomeTax:false, notes:"Landlord-friendly. Charlotte/Raleigh top growth markets. Low closing costs." },
+  { name:"North Dakota",  abbr:"ND", tax:0.98, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:2.9,  noIncomeTax:false, notes:"Very low income tax. Landlord-friendly. Limited market size." },
+  { name:"Ohio",          abbr:"OH", tax:1.59, closeLow:2.5, closeHigh:3.5, landlord:"Medium", incomeTax:3.99, noIncomeTax:false, notes:"High property tax. Low income tax. Columbus/Cleveland affordable markets." },
+  { name:"Oklahoma",      abbr:"OK", tax:0.90, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:4.75, noIncomeTax:false, notes:"Landlord-friendly. Low entry costs. Oklahoma City growing steadily." },
+  { name:"Oregon",        abbr:"OR", tax:0.97, closeLow:2.5, closeHigh:3.5, landlord:"Low",    incomeTax:9.9,  noIncomeTax:false, notes:"High income tax. Strict tenant protections in Portland. No sales tax." },
+  { name:"Pennsylvania",  abbr:"PA", tax:1.58, closeLow:3.0, closeHigh:4.5, landlord:"Medium", incomeTax:3.07, noIncomeTax:false, notes:"Attorney-required state. Philadelphia and Pittsburgh strong rental markets." },
+  { name:"Rhode Island",  abbr:"RI", tax:1.63, closeLow:3.0, closeHigh:4.5, landlord:"Medium", incomeTax:5.99, noIncomeTax:false, notes:"Small market. Newport vacation rentals. High property tax and closing costs." },
+  { name:"South Carolina",abbr:"SC", tax:0.57, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:7.0,  noIncomeTax:false, notes:"Very low property tax. Landlord-friendly. Charleston/Myrtle Beach vacation rentals." },
+  { name:"South Dakota",  abbr:"SD", tax:1.31, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No income tax. Landlord-friendly. Limited market size and liquidity." },
+  { name:"Tennessee",     abbr:"TN", tax:0.71, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No income tax (eliminated 2021). Low property tax. Nashville top-tier market." },
+  { name:"Texas",         abbr:"TX", tax:1.80, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No income tax. Landlord-friendly. High property tax offset by strong rents. DFW/Austin/Houston." },
+  { name:"Utah",          abbr:"UT", tax:0.58, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:4.85, noIncomeTax:false, notes:"Low property tax. Landlord-friendly. Salt Lake City fast-growing market." },
+  { name:"Vermont",       abbr:"VT", tax:1.90, closeLow:3.0, closeHigh:4.5, landlord:"Low",    incomeTax:8.75, noIncomeTax:false, notes:"High property tax and income tax. Tenant-friendly. Ski/vacation rental niche." },
+  { name:"Virginia",      abbr:"VA", tax:0.82, closeLow:2.5, closeHigh:3.5, landlord:"Medium", incomeTax:5.75, noIncomeTax:false, notes:"Northern Virginia strong due to DC proximity. Moderate costs overall." },
+  { name:"Washington",    abbr:"WA", tax:0.98, closeLow:2.5, closeHigh:3.5, landlord:"Low",    incomeTax:0,    noIncomeTax:true,  notes:"No income tax on rental income. Tenant-friendly in Seattle. Strong tech market." },
+  { name:"West Virginia", abbr:"WV", tax:0.59, closeLow:2.0, closeHigh:3.0, landlord:"Medium", incomeTax:6.5,  noIncomeTax:false, notes:"Very low property tax. Limited market growth. Lower rental yields." },
+  { name:"Wisconsin",     abbr:"WI", tax:1.85, closeLow:2.5, closeHigh:3.5, landlord:"Medium", incomeTax:7.65, noIncomeTax:false, notes:"High property tax. Milwaukee affordable entry. Madison university market." },
+  { name:"Wyoming",       abbr:"WY", tax:0.61, closeLow:2.0, closeHigh:3.0, landlord:"High",   incomeTax:0,    noIncomeTax:true,  notes:"No income tax. Low property tax. Landlord-friendly. Small market. Jackson Hole luxury niche." }
+];
+
+let sortCol = 1, sortDir = 1, currentFilter = 'all';
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function taxClass(rate) {
+  if (rate < 0.75) return 'good';
+  if (rate < 1.50) return 'mid';
+  return 'bad';
+}
+
+function closeClass(pct) {
+  if (pct < 2.75) return 'good';
+  if (pct < 3.75) return 'mid';
+  return 'bad';
+}
+
+function incomeTaxClass(rate) {
+  if (rate === 0) return 'good';
+  if (rate < 6) return 'mid';
+  return 'bad';
+}
+
+function landlordPill(val) {
+  if (val === 'High')   return '<span class="pill pill-green">Favorable</span>';
+  if (val === 'Medium') return '<span class="pill pill-yellow">Neutral</span>';
+  return '<span class="pill pill-red">Tenant-Friendly</span>';
+}
+
+function incomeTaxPill(rate, none) {
+  if (none) return '<span class="pill pill-green">None</span>';
+  if (rate < 5) return `<span class="pill pill-green">${rate}%</span>`;
+  if (rate < 8) return `<span class="pill pill-yellow">${rate}%</span>`;
+  return `<span class="pill pill-red">${rate}%</span>`;
+}
+
+function scoreHTML(state) {
+  let score = 0;
+  if (state.tax < 0.75) score += 2;
+  else if (state.tax < 1.5) score += 1;
+  if (state.noIncomeTax) score += 2;
+  else if (state.incomeTax < 5) score += 1;
+  if (state.landlord === 'High') score += 2;
+  else if (state.landlord === 'Medium') score += 1;
+  if (state.closeLow < 2.5) score += 1;
+
+  const max = 7;
+  const color = score >= 5 ? 'green' : score >= 3 ? 'yellow' : 'red';
+  let dots = '';
+  for (let i = 0; i < max; i++) {
+    dots += `<div class="dot ${i < score ? 'on ' + color : ''}"></div>`;
+  }
+  return `<div class="score-bar"><div class="score-dots">${dots}</div></div>`;
+}
+
+function buildTable() {
+  const price = parseFloat(document.getElementById('purchasePrice').value) || 500000;
+  const rent  = parseFloat(document.getElementById('monthlyRent').value) || 2500;
+  const mgmt  = parseFloat(document.getElementById('mgmtPct').value) || 10;
+
+  const annualRent = rent * 12;
+  const annualMgmt = annualRent * mgmt / 100;
+
+  const tbody = document.getElementById('tableBody');
+  const search = document.getElementById('searchBox').value.toLowerCase();
+
+  // Sort
+  const sorted = [...STATES].sort((a, b) => {
+    let av, bv;
+    switch (sortCol) {
+      case 0: av = a.name; bv = b.name; break;
+      case 1: av = a.tax; bv = b.tax; break;
+      case 2: av = a.tax * price / 100; bv = b.tax * price / 100; break;
+      case 3: av = (a.closeLow + a.closeHigh) / 2; bv = (b.closeLow + b.closeHigh) / 2; break;
+      case 4: av = (a.closeLow + a.closeHigh) / 2 * price / 100; bv = (b.closeLow + b.closeHigh) / 2 * price / 100; break;
+      case 5: av = annualMgmt; bv = annualMgmt; break;
+      case 6: av = a.incomeTax; bv = b.incomeTax; break;
+      case 7: av = a.landlord; bv = b.landlord; break;
+      default: av = a.tax; bv = b.tax;
+    }
+    if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+    return sortDir * (av - bv);
+  });
+
+  // Filter
+  const filtered = sorted.filter(s => {
+    const matchSearch = s.name.toLowerCase().includes(search) || s.abbr.toLowerCase().includes(search);
+    let matchFilter = true;
+    if (currentFilter === 'High') matchFilter = s.landlord === 'High';
+    if (currentFilter === 'none') matchFilter = s.noIncomeTax;
+    if (currentFilter === 'low_tax') matchFilter = s.tax < 0.75;
+    return matchSearch && matchFilter;
+  });
+
+  document.getElementById('resultCount').textContent = `${filtered.length} state${filtered.length !== 1 ? 's' : ''}`;
+
+  let html = '';
+  filtered.forEach(s => {
+    const annualTax   = s.tax * price / 100;
+    const avgClose    = (s.closeLow + s.closeHigh) / 2;
+    const closeAmt    = avgClose * price / 100;
+    const closeRange  = `${s.closeLow}–${s.closeHigh}%`;
+
+    html += `<tr>
+      <td class="state-cell">${s.name} <span class="abbr">${s.abbr}</span></td>
+      <td><span class="dollar ${taxClass(s.tax)}">${s.tax.toFixed(2)}%</span></td>
+      <td><span class="dollar ${taxClass(s.tax)}">${fmt(annualTax)}</span></td>
+      <td><span class="dollar ${closeClass(avgClose)}">${closeRange}</span></td>
+      <td><span class="dollar ${closeClass(avgClose)}">${fmt(closeAmt)}</span></td>
+      <td><span class="dollar mid">${fmt(annualMgmt)}</span></td>
+      <td>${incomeTaxPill(s.incomeTax, s.noIncomeTax)}</td>
+      <td>${landlordPill(s.landlord)}</td>
+      <td>${scoreHTML(s)}</td>
+      <td class="notes-cell">${s.notes}</td>
+    </tr>`;
+  });
+
+  tbody.innerHTML = html || '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--muted)">No states match your filter.</td></tr>';
+
+  // Update summary
+  const allTaxAmts  = STATES.map(s => s.tax * price / 100);
+  const allCloseAmts = STATES.map(s => (s.closeLow + s.closeHigh) / 2 * price / 100);
+  const avgTax   = allTaxAmts.reduce((a,b) => a+b, 0) / 50;
+  const avgClose2 = allCloseAmts.reduce((a,b) => a+b, 0) / 50;
+  const avgTaxRate = STATES.reduce((a,b) => a + b.tax, 0) / 50;
+  const avgCloseRate = STATES.reduce((a,b) => a + (b.closeLow + b.closeHigh)/2, 0) / 50;
+
+  const bestTax  = STATES.reduce((a,b) => a.tax < b.tax ? a : b);
+  const worstTax = STATES.reduce((a,b) => a.tax > b.tax ? a : b);
+
+  document.getElementById('sumClosing').textContent   = fmt(avgClose2);
+  document.getElementById('sumClosingPct').textContent = `Avg ${avgCloseRate.toFixed(1)}% of purchase price`;
+  document.getElementById('sumTax').textContent        = fmt(avgTax);
+  document.getElementById('sumTaxPct').textContent     = `Avg rate ${avgTaxRate.toFixed(2)}%`;
+  document.getElementById('sumMgmt').textContent       = fmt(annualMgmt);
+  document.getElementById('sumBestTax').textContent    = `${bestTax.tax.toFixed(2)}%`;
+  document.getElementById('sumBestTaxName').textContent= bestTax.name;
+  document.getElementById('sumWorstTax').textContent   = `${worstTax.tax.toFixed(2)}%`;
+  document.getElementById('sumWorstTaxName').textContent= worstTax.name;
+}
+
+function sortTable(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  document.querySelectorAll('th').forEach((th, i) => {
+    th.classList.remove('sorted-asc', 'sorted-desc');
+    if (i === col) th.classList.add(sortDir === 1 ? 'sorted-asc' : 'sorted-desc');
+  });
+  buildTable();
+}
+
+function filterLandlord(val, btn) {
+  currentFilter = val;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildTable();
+}
+
+document.getElementById('purchasePrice').addEventListener('input', buildTable);
+document.getElementById('monthlyRent').addEventListener('input', buildTable);
+document.getElementById('mgmtPct').addEventListener('input', buildTable);
+document.getElementById('searchBox').addEventListener('input', buildTable);
+
+buildTable();
+</script>
+</body>
+</html>

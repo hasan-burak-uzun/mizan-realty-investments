@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mizan Realty Investments — US Real Estate for Global Investors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0B1F3A;
+      --navy2:  #152D50;
+      --gold:   #C9A84C;
+      --gold2:  #E8C96A;
+      --light:  #F4F6F9;
+      --text:   #2C3E50;
+      --muted:  #6B7280;
+      --white:  #FFFFFF;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(11,31,58,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* RTL support */
+    [dir="rtl"] { font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif; }
+    [dir="rtl"] .services-grid,
+    [dir="rtl"] .steps,
+    [dir="rtl"] .why-grid { direction: rtl; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 70px;
+      background: rgba(11,31,58,0.97);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.80);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .lang-switcher {
+      display: flex; gap: 6px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.70);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.active { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 600; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(11,31,58,0.92) 0%, rgba(11,31,58,0.75) 60%, rgba(201,168,76,0.15) 100%),
+        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80') center/cover no-repeat;
+      display: flex; align-items: center;
+      padding: 100px 5vw 60px;
+    }
+
+    .hero-content { max-width: 680px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.20);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em { color: var(--gold); font-style: normal; }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.45);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--navy);
+      padding: 40px 5vw;
+      display: flex; justify-content: center; gap: 4vw; flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* SECTION COMMON */
+    section { padding: 90px 5vw; }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(201,168,76,0.30);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* SERVICES */
+    .services { background: var(--light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--gold);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(11,31,58,0.14);
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    /* WHY US */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0;
+    }
+
+    .why-card {
+      border-left: 4px solid var(--gold);
+      padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+      background: var(--light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    [dir="rtl"] .why-card {
+      border-left: none;
+      border-right: 4px solid var(--gold);
+      border-radius: var(--radius) 0 0 var(--radius);
+    }
+
+    .why-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* HOW IT WORKS */
+    .how { background: var(--navy); }
+    .how .section-title { color: var(--white); }
+    .how .section-tag { background: rgba(201,168,76,0.15); }
+    .how .section-subtitle { color: rgba(255,255,255,0.65); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .step { text-align: center; padding: 1.5rem; }
+
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+
+    .step h3 { color: var(--white); font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .step p { color: rgba(255,255,255,0.60); font-size: 0.875rem; line-height: 1.6; }
+
+    /* PRICING */
+    .pricing { background: var(--light); }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow);
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--gold);
+      position: relative;
+    }
+
+    .pricing-card:hover { transform: translateY(-3px); }
+
+    .pricing-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--navy);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 16px; border-radius: 20px;
+    }
+
+    .pricing-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card .price {
+      font-size: 2rem; font-weight: 700; color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-card .price-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    .pricing-card ul { list-style: none; }
+    .pricing-card ul li {
+      font-size: 0.88rem; color: var(--text);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--light);
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+
+    .pricing-card ul li::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    [dir="rtl"] .pricing-card ul li { flex-direction: row-reverse; }
+
+    /* TEAM */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      text-align: center;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .team-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1rem;
+    }
+
+    .team-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+    .team-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      text-align: center;
+      padding: 100px 5vw;
+    }
+
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section h2 em { color: var(--gold); font-style: normal; }
+    .cta-section p { color: rgba(255,255,255,0.70); font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    .contact-grid {
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+    }
+
+    .contact-item span:first-child { font-size: 1.2rem; }
+
+    /* FOOTER */
+    footer {
+      background: #07121F;
+      padding: 2rem 5vw;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.40); }
+
+    /* MOBILE */
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      nav { padding: 0 4vw; }
+      .hero { padding: 90px 4vw 50px; }
+      .stats-bar { gap: 2rem; padding: 30px 4vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Mizan<span> Realty</span></a>
+  <ul class="nav-links">
+    <li><a href="#services" data-i18n="nav.services">Services</a></li>
+    <li><a href="#why" data-i18n="nav.why">Why Us</a></li>
+    <li><a href="#how" data-i18n="nav.how">How It Works</a></li>
+    <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    <li><a href="costs.html" style="color:var(--gold);font-weight:700;" data-i18n="nav.calculator">State Cost Calculator</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('tr')">TR</button>
+    <button class="lang-btn" onclick="setLang('ar')">AR</button>
+    <button class="lang-btn" onclick="setLang('ur')">UR</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="hero-badge" data-i18n="hero.badge">Full-Service Real Estate Investment</span>
+    <h1 data-i18n="hero.title">Your Gateway to <em>US Real Estate</em> Investment</h1>
+    <p data-i18n="hero.subtitle">We handle everything — from sourcing deals to managing your portfolio — so you can invest in American real estate from anywhere in the world.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary" data-i18n="hero.cta1">Get Started</a>
+      <a href="#services" class="btn-outline" data-i18n="hero.cta2">Explore Services</a>
+      <a href="costs.html" class="btn-outline" data-i18n="hero.cta3">📊 State Cost Calculator</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">$500M+</div>
+    <div class="stat-label" data-i18n="stats.transactions">In Transactions</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">200+</div>
+    <div class="stat-label" data-i18n="stats.investors">International Investors</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">4</div>
+    <div class="stat-label" data-i18n="stats.languages">Languages Spoken</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">A–Z</div>
+    <div class="stat-label" data-i18n="stats.service">Full-Service Coverage</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag" data-i18n="nav.services">Services</div>
+  <h2 class="section-title" data-i18n="services.title">Everything You Need, Under One Roof</h2>
+  <p class="section-subtitle" data-i18n="services.subtitle">From your first consultation to long-term portfolio growth — we guide every step of your US real estate journey.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">🏡</span>
+      <h3 data-i18n="s1.title">Property Acquisition</h3>
+      <p data-i18n="s1.desc">We identify, analyze, and secure the best investment properties across California and major US markets using data-driven models.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🔨</span>
+      <h3 data-i18n="s2.title">Development & Renovation</h3>
+      <p data-i18n="s2.desc">We manage upgrades, renovations, and development projects that maximize your property's value and rental yield.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🗝️</span>
+      <h3 data-i18n="s3.title">Rental Management</h3>
+      <p data-i18n="s3.desc">Tenant screening, rent collection, maintenance coordination, and real-time reporting — fully handled for you.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏦</span>
+      <h3 data-i18n="s4.title">Mortgage & Financing</h3>
+      <p data-i18n="s4.desc">Specialized foreign national mortgage solutions. We navigate US financing so you don't have to — including non-resident loans.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">⚖️</span>
+      <h3 data-i18n="s5.title">Legal & Tax Advisory</h3>
+      <p data-i18n="s5.desc">FIRPTA compliance, LLC structuring, tax optimization, and full legal support for international buyers at every stage.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📊</span>
+      <h3 data-i18n="s6.title">Data-Driven Analysis</h3>
+      <p data-i18n="s6.desc">ML-powered market reports, yield forecasting, and deal scoring — backed by our team's applied mathematics expertise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-tag" data-i18n="nav.why">Why Us</div>
+  <h2 class="section-title" data-i18n="why.title">Built for the Global Investor</h2>
+  <p class="section-subtitle" data-i18n="why.subtitle">Most US real estate firms aren't set up for international clients. We are — by design.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3 data-i18n="w1.title">Quantitative Edge</h3>
+      <p data-i18n="w1.desc">Led by an Applied Mathematics PhD with ML expertise — we bring institutional-grade analytics to individual investors.</p>
+    </div>
+    <div class="why-card">
+      <h3 data-i18n="w2.title">Licensed California Broker</h3>
+      <p data-i18n="w2.desc">Full brokerage capabilities in one of the world's most desirable real estate markets.</p>
+    </div>
+    <div class="why-card">
+      <h3 data-i18n="w3.title">Foreign National Financing</h3>
+      <p data-i18n="w3.desc">Our mortgage specialist structures financing for non-US residents — most firms can't offer this.</p>
+    </div>
+    <div class="why-card">
+      <h3 data-i18n="w4.title">Multilingual Team</h3>
+      <p data-i18n="w4.desc">We communicate in English, Turkish, Arabic, and Urdu — no language barriers, no miscommunications.</p>
+    </div>
+    <div class="why-card">
+      <h3 data-i18n="w5.title">Flat Fee + Commission</h3>
+      <p data-i18n="w5.desc">Our pricing aligns our incentives with yours. Transparent fees, no hidden markups, no surprises.</p>
+    </div>
+    <div class="why-card">
+      <h3 data-i18n="w6.title">True A–Z Service</h3>
+      <p data-i18n="w6.desc">One trusted team from first inquiry to long-term portfolio management. You never need to find another provider.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-tag" data-i18n="nav.how">How It Works</div>
+  <h2 class="section-title" data-i18n="how.title">Invest in 4 Simple Steps</h2>
+  <p class="section-subtitle" data-i18n="how.subtitle">We've built a clear, stress-free process for international investors — from your first call to your first rent check.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3 data-i18n="step1.title">Free Consultation</h3>
+      <p data-i18n="step1.desc">We learn your goals, budget, and timeline. You get a clear picture of what's possible in your language.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3 data-i18n="step2.title">Deal Sourcing & Analysis</h3>
+      <p data-i18n="step2.desc">Our team identifies properties matching your criteria with full ML-powered yield and risk analysis.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3 data-i18n="step3.title">Purchase & Legal Setup</h3>
+      <p data-i18n="step3.desc">We handle financing, legal structure, closing, and compliance — you sign, we execute.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3 data-i18n="step4.title">Manage & Grow</h3>
+      <p data-i18n="step4.desc">Sit back while we manage tenants, maintenance, and reporting. Your portfolio grows on autopilot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-tag" data-i18n="nav.pricing">Pricing</div>
+  <h2 class="section-title" data-i18n="pricing.title">Transparent, Aligned Pricing</h2>
+  <p class="section-subtitle" data-i18n="pricing.subtitle">No hidden fees. No conflicted incentives. Our flat-fee model means we succeed only when you do.</p>
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <h3 data-i18n="p1.title">Acquisition</h3>
+      <div class="price" data-i18n="p1.price">Flat Fee + 1%</div>
+      <div class="price-sub" data-i18n="p1.sub">of purchase price on close</div>
+      <ul>
+        <li data-i18n="p1.f1">Property search & shortlisting</li>
+        <li data-i18n="p1.f2">ML-powered deal analysis</li>
+        <li data-i18n="p1.f3">Offer & negotiation support</li>
+        <li data-i18n="p1.f4">Closing coordination</li>
+      </ul>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge" data-i18n="p2.badge">Most Popular</div>
+      <h3 data-i18n="p2.title">Full-Service Package</h3>
+      <div class="price" data-i18n="p2.price">Custom Quote</div>
+      <div class="price-sub" data-i18n="p2.sub">acquisition + ongoing management</div>
+      <ul>
+        <li data-i18n="p2.f1">Everything in Acquisition</li>
+        <li data-i18n="p2.f2">LLC & legal setup</li>
+        <li data-i18n="p2.f3">Foreign national mortgage</li>
+        <li data-i18n="p2.f4">Flat monthly management fee</li>
+        <li data-i18n="p2.f5">Renovation management</li>
+        <li data-i18n="p2.f6">Multilingual reporting dashboard</li>
+      </ul>
+    </div>
+    <div class="pricing-card">
+      <h3 data-i18n="p3.title">Property Management</h3>
+      <div class="price" data-i18n="p3.price">Flat Monthly</div>
+      <div class="price-sub" data-i18n="p3.sub">no percentage-of-rent hidden fees</div>
+      <ul>
+        <li data-i18n="p3.f1">Tenant screening & placement</li>
+        <li data-i18n="p3.f2">Rent collection & disbursement</li>
+        <li data-i18n="p3.f3">Maintenance coordination</li>
+        <li data-i18n="p3.f4">Monthly investor reports</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-tag" data-i18n="team.tag">Our Team</div>
+  <h2 class="section-title" data-i18n="team.title">The Experts Behind Mizan Realty Investments</h2>
+  <p class="section-subtitle" data-i18n="team.subtitle">A rare combination of quantitative analysis, brokerage expertise, mortgage access, and technology — under one roof.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">🎓</div>
+      <h3 data-i18n="tm1.role">Lead Strategist & Analyst</h3>
+      <p data-i18n="tm1.desc">Applied Mathematics PhD · Data Science & ML · Quantitative investment modeling</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">🏠</div>
+      <h3 data-i18n="tm2.role">Licensed Real Estate Broker</h3>
+      <p data-i18n="tm2.desc">California DRE Licensed · Market sourcing · Negotiation & closing expertise</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">💻</div>
+      <h3 data-i18n="tm3.role">Technology Specialist</h3>
+      <p data-i18n="tm3.desc">Platform development · Investor dashboard · Automated reporting systems</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">🏦</div>
+      <h3 data-i18n="tm4.role">Mortgage Specialist</h3>
+      <p data-i18n="tm4.desc">Foreign national loans · Non-resident financing · US mortgage navigation</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-section" id="contact">
+  <h2 data-i18n="cta.title">Ready to Invest in <em>America</em>?</h2>
+  <p data-i18n="cta.subtitle">Schedule a free consultation in your language. No obligation. No pressure.</p>
+  <a href="mailto:hello@amerivest.com" class="btn-primary" data-i18n="cta.btn">Book a Free Consultation</a>
+  <div class="contact-grid">
+    <div class="contact-item"><span>📧</span><span>hello@amerivest.com</span></div>
+    <div class="contact-item"><span>📞</span><span>+1 (555) 000-0000</span></div>
+    <div class="contact-item"><span>📍</span><span>Los Angeles, California, USA</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mizan<span> Realty</span> Investments</div>
+  <p data-i18n="footer.copy">© 2025 Mizan Realty Investments. All rights reserved.</p>
+</footer>
+
+<script>
+const T = {
+  en: {
+    dir: 'ltr', lang: 'en',
+    "nav.services": "Services",
+    "nav.why": "Why Us",
+    "nav.how": "How It Works",
+    "nav.pricing": "Pricing",
+    "nav.contact": "Contact",
+    "nav.calculator": "State Cost Calculator",
+    "hero.cta3": "📊 State Cost Calculator",
+    "hero.badge": "Full-Service Real Estate Investment",
+    "hero.title": "Your Gateway to <em>US Real Estate</em> Investment",
+    "hero.subtitle": "We handle everything — from sourcing deals to managing your portfolio — so you can invest in American real estate from anywhere in the world.",
+    "hero.cta1": "Get Started",
+    "hero.cta2": "Explore Services",
+    "stats.transactions": "In Transactions",
+    "stats.investors": "International Investors",
+    "stats.languages": "Languages Spoken",
+    "stats.service": "Full-Service Coverage",
+    "services.title": "Everything You Need, Under One Roof",
+    "services.subtitle": "From your first consultation to long-term portfolio growth — we guide every step of your US real estate journey.",
+    "s1.title": "Property Acquisition",
+    "s1.desc": "We identify, analyze, and secure the best investment properties across California and major US markets using data-driven models.",
+    "s2.title": "Development & Renovation",
+    "s2.desc": "We manage upgrades, renovations, and development projects that maximize your property's value and rental yield.",
+    "s3.title": "Rental Management",
+    "s3.desc": "Tenant screening, rent collection, maintenance coordination, and real-time reporting — fully handled for you.",
+    "s4.title": "Mortgage & Financing",
+    "s4.desc": "Specialized foreign national mortgage solutions. We navigate US financing so you don't have to — including non-resident loans.",
+    "s5.title": "Legal & Tax Advisory",
+    "s5.desc": "FIRPTA compliance, LLC structuring, tax optimization, and full legal support for international buyers at every stage.",
+    "s6.title": "Data-Driven Analysis",
+    "s6.desc": "ML-powered market reports, yield forecasting, and deal scoring — backed by our team's applied mathematics expertise.",
+    "why.title": "Built for the Global Investor",
+    "why.subtitle": "Most US real estate firms aren't set up for international clients. We are — by design.",
+    "w1.title": "Quantitative Edge",
+    "w1.desc": "Led by an Applied Mathematics PhD with ML expertise — we bring institutional-grade analytics to individual investors.",
+    "w2.title": "Licensed California Broker",
+    "w2.desc": "Full brokerage capabilities in one of the world's most desirable real estate markets.",
+    "w3.title": "Foreign National Financing",
+    "w3.desc": "Our mortgage specialist structures financing for non-US residents — most firms can't offer this.",
+    "w4.title": "Multilingual Team",
+    "w4.desc": "We communicate in English, Turkish, Arabic, and Urdu — no language barriers, no miscommunications.",
+    "w5.title": "Flat Fee + Commission",
+    "w5.desc": "Our pricing aligns our incentives with yours. Transparent fees, no hidden markups, no surprises.",
+    "w6.title": "True A–Z Service",
+    "w6.desc": "One trusted team from first inquiry to long-term portfolio management. You never need to find another provider.",
+    "how.title": "Invest in 4 Simple Steps",
+    "how.subtitle": "We've built a clear, stress-free process for international investors — from your first call to your first rent check.",
+    "step1.title": "Free Consultation",
+    "step1.desc": "We learn your goals, budget, and timeline. You get a clear picture of what's possible in your language.",
+    "step2.title": "Deal Sourcing & Analysis",
+    "step2.desc": "Our team identifies properties matching your criteria with full ML-powered yield and risk analysis.",
+    "step3.title": "Purchase & Legal Setup",
+    "step3.desc": "We handle financing, legal structure, closing, and compliance — you sign, we execute.",
+    "step4.title": "Manage & Grow",
+    "step4.desc": "Sit back while we manage tenants, maintenance, and reporting. Your portfolio grows on autopilot.",
+    "pricing.title": "Transparent, Aligned Pricing",
+    "pricing.subtitle": "No hidden fees. No conflicted incentives. Our flat-fee model means we succeed only when you do.",
+    "p1.title": "Acquisition",
+    "p1.price": "Flat Fee + 1%",
+    "p1.sub": "of purchase price on close",
+    "p1.f1": "Property search & shortlisting",
+    "p1.f2": "ML-powered deal analysis",
+    "p1.f3": "Offer & negotiation support",
+    "p1.f4": "Closing coordination",
+    "p2.badge": "Most Popular",
+    "p2.title": "Full-Service Package",
+    "p2.price": "Custom Quote",
+    "p2.sub": "acquisition + ongoing management",
+    "p2.f1": "Everything in Acquisition",
+    "p2.f2": "LLC & legal setup",
+    "p2.f3": "Foreign national mortgage",
+    "p2.f4": "Flat monthly management fee",
+    "p2.f5": "Renovation management",
+    "p2.f6": "Multilingual reporting dashboard",
+    "p3.title": "Property Management",
+    "p3.price": "Flat Monthly",
+    "p3.sub": "no percentage-of-rent hidden fees",
+    "p3.f1": "Tenant screening & placement",
+    "p3.f2": "Rent collection & disbursement",
+    "p3.f3": "Maintenance coordination",
+    "p3.f4": "Monthly investor reports",
+    "team.tag": "Our Team",
+    "team.title": "The Experts Behind Mizan Realty Investments",
+    "team.subtitle": "A rare combination of quantitative analysis, brokerage expertise, mortgage access, and technology — under one roof.",
+    "tm1.role": "Lead Strategist & Analyst",
+    "tm1.desc": "Applied Mathematics PhD · Data Science & ML · Quantitative investment modeling",
+    "tm2.role": "Licensed Real Estate Broker",
+    "tm2.desc": "California DRE Licensed · Market sourcing · Negotiation & closing expertise",
+    "tm3.role": "Technology Specialist",
+    "tm3.desc": "Platform development · Investor dashboard · Automated reporting systems",
+    "tm4.role": "Mortgage Specialist",
+    "tm4.desc": "Foreign national loans · Non-resident financing · US mortgage navigation",
+    "cta.title": "Ready to Invest in <em>America</em>?",
+    "cta.subtitle": "Schedule a free consultation in your language. No obligation. No pressure.",
+    "cta.btn": "Book a Free Consultation",
+    "footer.copy": "© 2025 Mizan Realty Investments. All rights reserved."
+  },
+
+  tr: {
+    dir: 'ltr', lang: 'tr',
+    "nav.services": "Hizmetler",
+    "nav.why": "Neden Biz",
+    "nav.how": "Nasıl Çalışır",
+    "nav.pricing": "Fiyatlar",
+    "nav.contact": "İletişim",
+    "nav.calculator": "Eyalet Maliyet Hesaplayıcı",
+    "hero.cta3": "📊 Eyalet Maliyet Hesaplayıcı",
+    "hero.badge": "Tam Kapsamlı Gayrimenkul Yatırımı",
+    "hero.title": "<em>ABD Gayrimenkulüne</em> Yatırımın Kapısı",
+    "hero.subtitle": "Fırsat bulmaktan portföyünüzü yönetmeye kadar her şeyi biz hallederiz — dünyanın her yerinden Amerikan gayrimenkulüne güvenle yatırım yapın.",
+    "hero.cta1": "Hemen Başlayın",
+    "hero.cta2": "Hizmetleri Keşfedin",
+    "stats.transactions": "İşlem Hacmi",
+    "stats.investors": "Uluslararası Yatırımcı",
+    "stats.languages": "Konuşulan Dil",
+    "stats.service": "Tam Kapsamlı Hizmet",
+    "services.title": "İhtiyacınız Olan Her Şey, Tek Çatı Altında",
+    "services.subtitle": "İlk danışmanlıktan uzun vadeli portföy büyümesine kadar — ABD gayrimenkul yolculuğunuzun her adımında yanınızdayız.",
+    "s1.title": "Mülk Satın Alma",
+    "s1.desc": "Veri odaklı modellerimizle California ve büyük ABD pazarlarındaki en iyi yatırım mülklerini tespit eder, analiz eder ve güvence altına alırız.",
+    "s2.title": "Geliştirme & Renovasyon",
+    "s2.desc": "Mülkünüzün değerini ve kira getirisini maksimize eden tadilat ve geliştirme projelerini yönetiriz.",
+    "s3.title": "Kiralık Yönetimi",
+    "s3.desc": "Kiracı seçimi, kira tahsilatı, bakım koordinasyonu ve gerçek zamanlı raporlama — tamamı sizin adınıza yönetilir.",
+    "s4.title": "İpotek & Finansman",
+    "s4.desc": "Yabancı uyruklu kişilere özel ipotek çözümleri. ABD finansmanını siz için biz yönetiyoruz — yerleşik olmayan krediler dahil.",
+    "s5.title": "Hukuki & Vergi Danışmanlığı",
+    "s5.desc": "FIRPTA uyumu, LLC kurulumu, vergi optimizasyonu ve uluslararası alıcılar için her aşamada tam hukuki destek.",
+    "s6.title": "Veri Odaklı Analiz",
+    "s6.desc": "Makine öğrenimi destekli piyasa raporları, getiri tahmini ve fırsat skorlaması — ekibimizin uygulamalı matematik uzmanlığıyla.",
+    "why.title": "Küresel Yatırımcı İçin Tasarlandı",
+    "why.subtitle": "ABD'deki çoğu gayrimenkul firması uluslararası müşterilere hazır değildir. Biz tasarımdan itibaren hazırız.",
+    "w1.title": "Kantitatif Üstünlük",
+    "w1.desc": "Makine öğrenimi uzmanlığına sahip Uygulamalı Matematik doktorası liderliğinde — kurumsal düzey analitiği bireysel yatırımcılara sunuyoruz.",
+    "w2.title": "Lisanslı California Simsarı",
+    "w2.desc": "Dünyanın en cazip gayrimenkul pazarlarından birinde tam aracılık hizmetleri.",
+    "w3.title": "Yabancı Uyruklu Finansmanı",
+    "w3.desc": "İpotek uzmanımız ABD dışında ikamet edenler için finansman yapılandırıyor — çoğu firma bunu sunamaz.",
+    "w4.title": "Çok Dilli Ekip",
+    "w4.desc": "İngilizce, Türkçe, Arapça ve Urduca iletişim kuruyoruz — dil engeli yok, yanlış anlama yok.",
+    "w5.title": "Sabit Ücret + Komisyon",
+    "w5.desc": "Fiyatlandırmamız çıkarlarımızı sizinkiyle hizalar. Şeffaf ücretler, gizli fiyatlandırma yok, sürpriz yok.",
+    "w6.title": "Gerçek A–Z Hizmet",
+    "w6.desc": "İlk sorudan uzun vadeli portföy yönetimine kadar tek güvenilir ekip. Başka bir sağlayıcı bulmanıza gerek kalmaz.",
+    "how.title": "4 Basit Adımda Yatırım Yapın",
+    "how.subtitle": "Uluslararası yatırımcılar için ilk görüşmeden ilk kira çekine kadar net ve stressiz bir süreç inşa ettik.",
+    "step1.title": "Ücretsiz Danışmanlık",
+    "step1.desc": "Hedeflerinizi, bütçenizi ve zaman çizelgenizi öğreniyoruz. Kendi dilinizde ne mümkün olduğunu net şekilde görürsünüz.",
+    "step2.title": "Fırsat Arama & Analiz",
+    "step2.desc": "Ekibimiz kriterlerinize uyan mülkleri ML destekli getiri ve risk analiziyle belirler.",
+    "step3.title": "Satın Alma & Hukuki Kurulum",
+    "step3.desc": "Finansman, hukuki yapı, kapanış ve uyumluluk — siz imzalarsınız, biz yürütürüz.",
+    "step4.title": "Yönetin & Büyütün",
+    "step4.desc": "Kiracıları, bakımı ve raporlamayı biz yönetirken siz rahat edin. Portföyünüz otomatik olarak büyür.",
+    "pricing.title": "Şeffaf, Hizalı Fiyatlandırma",
+    "pricing.subtitle": "Gizli ücret yok. Çakışan çıkar yok. Sabit ücret modelimiz, yalnızca siz başardığınızda biz de başarıyoruz demektir.",
+    "p1.title": "Satın Alma",
+    "p1.price": "Sabit Ücret + %1",
+    "p1.sub": "kapanışta satış fiyatı üzerinden",
+    "p1.f1": "Mülk araştırma ve kısa liste",
+    "p1.f2": "ML destekli fırsat analizi",
+    "p1.f3": "Teklif & müzakere desteği",
+    "p1.f4": "Kapanış koordinasyonu",
+    "p2.badge": "En Popüler",
+    "p2.title": "Tam Kapsamlı Paket",
+    "p2.price": "Özel Fiyat",
+    "p2.sub": "satın alma + süregelen yönetim",
+    "p2.f1": "Satın Alma'daki her şey",
+    "p2.f2": "LLC & hukuki kurulum",
+    "p2.f3": "Yabancı uyruklu ipotek",
+    "p2.f4": "Sabit aylık yönetim ücreti",
+    "p2.f5": "Renovasyon yönetimi",
+    "p2.f6": "Çok dilli raporlama panosu",
+    "p3.title": "Mülk Yönetimi",
+    "p3.price": "Sabit Aylık",
+    "p3.sub": "kira yüzdesi bazlı gizli ücret yok",
+    "p3.f1": "Kiracı seçimi ve yerleştirme",
+    "p3.f2": "Kira tahsilatı ve ödeme",
+    "p3.f3": "Bakım koordinasyonu",
+    "p3.f4": "Aylık yatırımcı raporları",
+    "team.tag": "Ekibimiz",
+    "team.title": "Mizan Realty Investments'ın Arkasındaki Uzmanlar",
+    "team.subtitle": "Kantitatif analiz, aracılık uzmanlığı, ipotek erişimi ve teknoloji — tek çatı altında nadir bir kombinasyon.",
+    "tm1.role": "Baş Stratejist & Analist",
+    "tm1.desc": "Uygulamalı Matematik Doktorası · Veri Bilimi & Makine Öğrenimi · Kantitatif yatırım modellemesi",
+    "tm2.role": "Lisanslı Gayrimenkul Simsarı",
+    "tm2.desc": "California DRE Lisanslı · Piyasa araştırması · Müzakere & kapanış uzmanlığı",
+    "tm3.role": "Teknoloji Uzmanı",
+    "tm3.desc": "Platform geliştirme · Yatırımcı panosu · Otomatik raporlama sistemleri",
+    "tm4.role": "İpotek Uzmanı",
+    "tm4.desc": "Yabancı uyruklu krediler · Yerleşik olmayan finansman · ABD ipotek yönlendirmesi",
+    "cta.title": "<em>Amerika'ya</em> Yatırım Yapmaya Hazır mısınız?",
+    "cta.subtitle": "Kendi dilinizde ücretsiz danışmanlık randevusu alın. Yükümlülük yok. Baskı yok.",
+    "cta.btn": "Ücretsiz Danışmanlık Alın",
+    "footer.copy": "© 2025 Mizan Realty Investments. Tüm hakları saklıdır."
+  },
+
+  ar: {
+    dir: 'rtl', lang: 'ar',
+    "nav.services": "الخدمات",
+    "nav.why": "لماذا نحن",
+    "nav.how": "كيف يعمل",
+    "nav.pricing": "الأسعار",
+    "nav.contact": "تواصل معنا",
+    "nav.calculator": "حاسبة تكاليف الولايات",
+    "hero.cta3": "📊 حاسبة تكاليف الولايات",
+    "hero.badge": "خدمة عقارية متكاملة",
+    "hero.title": "بوابتك للاستثمار في <em>العقارات الأمريكية</em>",
+    "hero.subtitle": "نتولى كل شيء — من اكتشاف الصفقات إلى إدارة محفظتك — لتستثمر في العقارات الأمريكية بثقة من أي مكان في العالم.",
+    "hero.cta1": "ابدأ الآن",
+    "hero.cta2": "استكشف خدماتنا",
+    "stats.transactions": "حجم المعاملات",
+    "stats.investors": "مستثمر دولي",
+    "stats.languages": "لغات يتحدثها فريقنا",
+    "stats.service": "خدمة متكاملة من الألف إلى الياء",
+    "services.title": "كل ما تحتاجه تحت سقف واحد",
+    "services.subtitle": "من أول استشارة حتى نمو المحفظة على المدى البعيد — نرشدك في كل خطوة من رحلتك العقارية في الولايات المتحدة.",
+    "s1.title": "الاستحواذ على العقارات",
+    "s1.desc": "نحدد ونحلل ونؤمّن أفضل العقارات الاستثمارية في كاليفورنيا والأسواق الأمريكية الكبرى باستخدام نماذج تحليلية متقدمة.",
+    "s2.title": "التطوير والتجديد",
+    "s2.desc": "ندير مشاريع التحسين والتجديد والتطوير التي تعظّم قيمة عقارك وعائد إيجاره.",
+    "s3.title": "إدارة الإيجار",
+    "s3.desc": "فحص المستأجرين وتحصيل الإيجار وتنسيق الصيانة والتقارير اللحظية — كل ذلك يُدار نيابةً عنك.",
+    "s4.title": "الرهن العقاري والتمويل",
+    "s4.desc": "حلول رهن عقاري مخصصة للمواطنين الأجانب. نتعامل مع التمويل الأمريكي نيابةً عنك — بما في ذلك قروض غير المقيمين.",
+    "s5.title": "الاستشارات القانونية والضريبية",
+    "s5.desc": "الامتثال لـFIRPTA، تأسيس شركات LLC، تحسين الضرائب، ودعم قانوني كامل للمشترين الدوليين في كل مرحلة.",
+    "s6.title": "التحليل القائم على البيانات",
+    "s6.desc": "تقارير سوقية مدعومة بالذكاء الاصطناعي، وتوقعات العائد، وتقييم الصفقات — بدعم من خبرة فريقنا في الرياضيات التطبيقية.",
+    "why.title": "مبني للمستثمر العالمي",
+    "why.subtitle": "معظم شركات العقارات الأمريكية غير مجهّزة للعملاء الدوليين. أما نحن فقد صُمّمنا لذلك من الأساس.",
+    "w1.title": "تفوق كمي",
+    "w1.desc": "بقيادة دكتوراه في الرياضيات التطبيقية مع خبرة في التعلم الآلي — نقدم تحليلات بمستوى المؤسسات للمستثمرين الأفراد.",
+    "w2.title": "وسيط عقاري مرخّص في كاليفورنيا",
+    "w2.desc": "قدرات وساطة كاملة في أحد أكثر أسواق العقارات جاذبية في العالم.",
+    "w3.title": "تمويل للمواطنين الأجانب",
+    "w3.desc": "يهيكل متخصص الرهن العقاري لدينا التمويل لغير المقيمين الأمريكيين — وهو ما لا تستطيع معظم الشركات تقديمه.",
+    "w4.title": "فريق متعدد اللغات",
+    "w4.desc": "نتواصل بالإنجليزية والتركية والعربية والأردية — لا حواجز لغوية، لا سوء فهم.",
+    "w5.title": "رسوم ثابتة + عمولة",
+    "w5.desc": "تسعيرنا يجعل مصالحنا متوافقة مع مصالحك. رسوم شفافة، لا رسوم مخفية، لا مفاجآت.",
+    "w6.title": "خدمة حقيقية من الألف إلى الياء",
+    "w6.desc": "فريق واحد موثوق من أول استفسار حتى إدارة المحفظة على المدى البعيد. لن تحتاج إلى البحث عن مزود آخر.",
+    "how.title": "استثمر في 4 خطوات بسيطة",
+    "how.subtitle": "بنينا مساراً واضحاً وخالياً من التوتر للمستثمرين الدوليين — من أول اتصال حتى أول شيك إيجار.",
+    "step1.title": "استشارة مجانية",
+    "step1.desc": "نتعرف على أهدافك وميزانيتك وجدولك الزمني. تحصل على صورة واضحة لما هو ممكن بلغتك.",
+    "step2.title": "البحث عن الصفقات وتحليلها",
+    "step2.desc": "يحدد فريقنا العقارات المطابقة لمعاييرك مع تحليل كامل للعائد والمخاطر مدعوم بالذكاء الاصطناعي.",
+    "step3.title": "الشراء والإعداد القانوني",
+    "step3.desc": "نتولى التمويل والهيكل القانوني والإغلاق والامتثال — أنت توقّع، نحن ننفّذ.",
+    "step4.title": "الإدارة والنمو",
+    "step4.desc": "استرخِ بينما ندير المستأجرين والصيانة والتقارير. محفظتك تنمو على الطيار الآلي.",
+    "pricing.title": "تسعير شفاف ومتوافق مع مصالحك",
+    "pricing.subtitle": "لا رسوم مخفية. لا تعارض في المصالح. نموذجنا بالرسوم الثابتة يعني أننا لا ننجح إلا حين تنجح أنت.",
+    "p1.title": "الاستحواذ",
+    "p1.price": "رسوم ثابتة + 1%",
+    "p1.sub": "من سعر الشراء عند الإغلاق",
+    "p1.f1": "البحث عن العقارات وإدراجها في القائمة المختصرة",
+    "p1.f2": "تحليل الصفقات بالذكاء الاصطناعي",
+    "p1.f3": "دعم العرض والتفاوض",
+    "p1.f4": "تنسيق إغلاق الصفقة",
+    "p2.badge": "الأكثر طلباً",
+    "p2.title": "الباقة المتكاملة",
+    "p2.price": "عرض مخصص",
+    "p2.sub": "استحواذ + إدارة مستمرة",
+    "p2.f1": "كل ما في خدمة الاستحواذ",
+    "p2.f2": "تأسيس شركة LLC والإعداد القانوني",
+    "p2.f3": "رهن عقاري للمواطنين الأجانب",
+    "p2.f4": "رسوم إدارة شهرية ثابتة",
+    "p2.f5": "إدارة مشاريع التجديد",
+    "p2.f6": "لوحة تقارير متعددة اللغات",
+    "p3.title": "إدارة العقارات",
+    "p3.price": "رسوم شهرية ثابتة",
+    "p3.sub": "لا رسوم مخفية كنسبة من الإيجار",
+    "p3.f1": "فحص المستأجرين وتوظيفهم",
+    "p3.f2": "تحصيل الإيجار وصرفه",
+    "p3.f3": "تنسيق الصيانة",
+    "p3.f4": "تقارير شهرية للمستثمر",
+    "team.tag": "فريقنا",
+    "team.title": "الخبراء خلف Mizan Realty Investments",
+    "team.subtitle": "مزيج نادر من التحليل الكمي وخبرة الوساطة والوصول إلى التمويل والتكنولوجيا — تحت سقف واحد.",
+    "tm1.role": "كبير الاستراتيجيين والمحللين",
+    "tm1.desc": "دكتوراه في الرياضيات التطبيقية · علم البيانات والتعلم الآلي · النمذجة الاستثمارية الكمية",
+    "tm2.role": "وسيط عقاري مرخّص",
+    "tm2.desc": "مرخّص من DRE كاليفورنيا · استطلاع السوق · خبرة التفاوض والإغلاق",
+    "tm3.role": "متخصص التكنولوجيا",
+    "tm3.desc": "تطوير المنصة · لوحة تحكم المستثمر · أنظمة التقارير الآلية",
+    "tm4.role": "متخصص الرهن العقاري",
+    "tm4.desc": "قروض للمواطنين الأجانب · تمويل غير المقيمين · التوجيه في الرهن العقاري الأمريكي",
+    "cta.title": "هل أنت مستعد للاستثمار في <em>أمريكا</em>؟",
+    "cta.subtitle": "احجز استشارة مجانية بلغتك. لا التزامات. لا ضغوط.",
+    "cta.btn": "احجز استشارة مجانية",
+    "footer.copy": "© 2025 Mizan Realty Investments. جميع الحقوق محفوظة."
+  },
+
+  ur: {
+    dir: 'rtl', lang: 'ur',
+    "nav.services": "خدمات",
+    "nav.why": "ہمیں کیوں چنیں",
+    "nav.how": "یہ کیسے کام کرتا ہے",
+    "nav.pricing": "قیمتیں",
+    "nav.contact": "رابطہ کریں",
+    "nav.calculator": "ریاستی لاگت کیلکولیٹر",
+    "hero.cta3": "📊 ریاستی لاگت کیلکولیٹر",
+    "hero.badge": "مکمل رئیل اسٹیٹ سرمایہ کاری سروس",
+    "hero.title": "<em>امریکی رئیل اسٹیٹ</em> میں سرمایہ کاری کا آپ کا دروازہ",
+    "hero.subtitle": "ڈیل تلاش کرنے سے لے کر آپ کے پورٹ فولیو کو منظم کرنے تک — ہم سب کچھ سنبھالتے ہیں تاکہ آپ دنیا میں کہیں سے بھی امریکی رئیل اسٹیٹ میں سرمایہ کاری کر سکیں۔",
+    "hero.cta1": "شروع کریں",
+    "hero.cta2": "خدمات دیکھیں",
+    "stats.transactions": "لین دین کا حجم",
+    "stats.investors": "بین الاقوامی سرمایہ کار",
+    "stats.languages": "بولی جانے والی زبانیں",
+    "stats.service": "مکمل سروس کوریج",
+    "services.title": "آپ کی ہر ضرورت، ایک چھت تلے",
+    "services.subtitle": "پہلی مشاورت سے طویل مدتی پورٹ فولیو کی ترقی تک — ہم امریکی رئیل اسٹیٹ کے سفر کے ہر قدم پر آپ کے ساتھ ہیں۔",
+    "s1.title": "جائیداد کا حصول",
+    "s1.desc": "ہم ڈیٹا پر مبنی ماڈلز کا استعمال کرتے ہوئے کیلیفورنیا اور بڑے امریکی بازاروں میں بہترین سرمایہ کاری والی جائیدادیں تلاش، تجزیہ اور محفوظ کرتے ہیں۔",
+    "s2.title": "ترقی اور تجدید",
+    "s2.desc": "ہم بہتری، تجدید اور ترقیاتی منصوبوں کا انتظام کرتے ہیں جو آپ کی جائیداد کی قیمت اور کرایہ کی آمدنی کو زیادہ سے زیادہ کرتے ہیں۔",
+    "s3.title": "کرایہ کا انتظام",
+    "s3.desc": "کرایہ دار کی جانچ، کرایہ کی وصولی، دیکھ بھال کی ہم آہنگی، اور ریئل ٹائم رپورٹنگ — سب کچھ آپ کی طرف سے سنبھالا جاتا ہے۔",
+    "s4.title": "رہن اور مالیات",
+    "s4.desc": "غیر ملکی شہریوں کے لیے خصوصی رہن کے حل۔ ہم آپ کی طرف سے امریکی مالیات کا انتظام کرتے ہیں — غیر مقیم قرضے بھی شامل ہیں۔",
+    "s5.title": "قانونی اور ٹیکس مشاورت",
+    "s5.desc": "FIRPTA کی تعمیل، LLC کا قیام، ٹیکس کی اصلاح، اور بین الاقوامی خریداروں کے لیے ہر مرحلے پر مکمل قانونی مدد۔",
+    "s6.title": "ڈیٹا پر مبنی تجزیہ",
+    "s6.desc": "مشین لرننگ سے چلنے والی مارکیٹ رپورٹیں، پیداوار کی پیشین گوئی، اور ڈیل اسکورنگ — ہماری ٹیم کی ریاضیات کی مہارت کے ساتھ۔",
+    "why.title": "عالمی سرمایہ کار کے لیے بنایا گیا",
+    "why.subtitle": "زیادہ تر امریکی رئیل اسٹیٹ کمپنیاں بین الاقوامی کلائنٹس کے لیے تیار نہیں ہیں۔ ہم ہیں — ڈیزائن کے ذریعے۔",
+    "w1.title": "مقداری برتری",
+    "w1.desc": "ML مہارت کے ساتھ اپلائیڈ ریاضیات کے PhD کی قیادت میں — ہم انفرادی سرمایہ کاروں کو ادارہ جاتی درجے کے تجزیات فراہم کرتے ہیں۔",
+    "w2.title": "لائسنس یافتہ کیلیفورنیا بروکر",
+    "w2.desc": "دنیا کی سب سے مطلوب رئیل اسٹیٹ منڈیوں میں سے ایک میں مکمل بروکریج صلاحیتیں۔",
+    "w3.title": "غیر ملکی شہریوں کی مالی اعانت",
+    "w3.desc": "ہمارے رہن کے ماہر غیر امریکی باشندوں کے لیے مالیات ترتیب دیتے ہیں — زیادہ تر کمپنیاں یہ نہیں کر سکتیں۔",
+    "w4.title": "کثیر لسانی ٹیم",
+    "w4.desc": "ہم انگریزی، ترکی، عربی، اور اردو میں بات چیت کرتے ہیں — کوئی زبان کی رکاوٹ نہیں، کوئی غلط فہمی نہیں۔",
+    "w5.title": "مقررہ فیس + کمیشن",
+    "w5.desc": "ہماری قیمت ہمارے مفادات کو آپ کے ساتھ ہم آہنگ کرتی ہے۔ شفاف فیسیں، کوئی چھپی ہوئی چارجز نہیں۔",
+    "w6.title": "حقیقی A–Z سروس",
+    "w6.desc": "پہلی انکوائری سے طویل مدتی پورٹ فولیو مینجمنٹ تک ایک قابل اعتماد ٹیم۔ آپ کو کبھی کوئی اور فراہم کنندہ تلاش نہیں کرنا پڑے گا۔",
+    "how.title": "4 آسان مراحل میں سرمایہ کاری کریں",
+    "how.subtitle": "ہم نے بین الاقوامی سرمایہ کاروں کے لیے ایک واضح، تناؤ سے پاک عمل بنایا ہے — پہلی کال سے پہلے کرایہ چیک تک۔",
+    "step1.title": "مفت مشاورت",
+    "step1.desc": "ہم آپ کے اہداف، بجٹ اور ٹائم لائن سیکھتے ہیں۔ آپ اپنی زبان میں کیا ممکن ہے اس کی واضح تصویر حاصل کرتے ہیں۔",
+    "step2.title": "ڈیل کی تلاش اور تجزیہ",
+    "step2.desc": "ہماری ٹیم آپ کے معیار سے مطابقت رکھنے والی جائیدادوں کی شناخت ML سے چلنے والے پیداوار اور خطرے کے تجزیے کے ساتھ کرتی ہے۔",
+    "step3.title": "خرید اور قانونی سیٹ اپ",
+    "step3.desc": "ہم مالیات، قانونی ڈھانچہ، بندش اور تعمیل سنبھالتے ہیں — آپ دستخط کریں، ہم عمل کریں۔",
+    "step4.title": "انتظام اور ترقی",
+    "step4.desc": "آرام کریں جبکہ ہم کرایہ داروں، دیکھ بھال اور رپورٹنگ کا انتظام کرتے ہیں۔ آپ کا پورٹ فولیو خود بخود بڑھتا ہے۔",
+    "pricing.title": "شفاف، ہم آہنگ قیمت",
+    "pricing.subtitle": "کوئی چھپی ہوئی فیسیں نہیں۔ کوئی متضاد مراعات نہیں۔ ہماری مقررہ فیس کا ماڈل مطلب ہے کہ ہم صرف اس وقت کامیاب ہوتے ہیں جب آپ کامیاب ہوتے ہیں۔",
+    "p1.title": "حصول",
+    "p1.price": "مقررہ فیس + 1%",
+    "p1.sub": "بندش پر خریداری کی قیمت کا",
+    "p1.f1": "جائیداد کی تلاش اور شارٹ لسٹنگ",
+    "p1.f2": "ML سے چلنے والا ڈیل تجزیہ",
+    "p1.f3": "پیشکش اور گفت و شنید کی مدد",
+    "p1.f4": "بندش کی ہم آہنگی",
+    "p2.badge": "سب سے مقبول",
+    "p2.title": "مکمل سروس پیکج",
+    "p2.price": "حسب ضرورت قیمت",
+    "p2.sub": "حصول + جاری انتظام",
+    "p2.f1": "حصول میں سب کچھ",
+    "p2.f2": "LLC اور قانونی سیٹ اپ",
+    "p2.f3": "غیر ملکی شہری کا رہن",
+    "p2.f4": "مقررہ ماہانہ انتظامی فیس",
+    "p2.f5": "تجدید کا انتظام",
+    "p2.f6": "کثیر لسانی رپورٹنگ ڈیش بورڈ",
+    "p3.title": "جائیداد کا انتظام",
+    "p3.price": "مقررہ ماہانہ",
+    "p3.sub": "کرایہ کی فیصد کی کوئی چھپی ہوئی فیس نہیں",
+    "p3.f1": "کرایہ دار کی جانچ اور تعیناتی",
+    "p3.f2": "کرایہ کی وصولی اور ادائیگی",
+    "p3.f3": "دیکھ بھال کی ہم آہنگی",
+    "p3.f4": "ماہانہ سرمایہ کار رپورٹیں",
+    "team.tag": "ہماری ٹیم",
+    "team.title": "Mizan Realty Investments کے پیچھے ماہرین",
+    "team.subtitle": "مقداری تجزیہ، بروکریج مہارت، رہن تک رسائی، اور ٹیکنالوجی کا نادر امتزاج — ایک چھت تلے۔",
+    "tm1.role": "سرکردہ حکمت عملی ساز اور تجزیہ کار",
+    "tm1.desc": "اپلائیڈ ریاضیات میں PhD · ڈیٹا سائنس اور ML · مقداری سرمایہ کاری ماڈلنگ",
+    "tm2.role": "لائسنس یافتہ رئیل اسٹیٹ بروکر",
+    "tm2.desc": "کیلیفورنیا DRE لائسنس یافتہ · مارکیٹ سورسنگ · گفت و شنید اور بندش کی مہارت",
+    "tm3.role": "ٹیکنالوجی ماہر",
+    "tm3.desc": "پلیٹ فارم ڈویلپمنٹ · سرمایہ کار ڈیش بورڈ · خودکار رپورٹنگ سسٹم",
+    "tm4.role": "رہن کے ماہر",
+    "tm4.desc": "غیر ملکی شہریوں کے قرضے · غیر مقیم مالیات · امریکی رہن کی رہنمائی",
+    "cta.title": "<em>امریکہ</em> میں سرمایہ کاری کے لیے تیار ہیں؟",
+    "cta.subtitle": "اپنی زبان میں مفت مشاورت بک کریں۔ کوئی ذمہ داری نہیں۔ کوئی دباؤ نہیں۔",
+    "cta.btn": "مفت مشاورت بک کریں",
+    "footer.copy": "© 2025 Mizan Realty Investments. تمام حقوق محفوظ ہیں۔"
+  }
+};
+
+function setLang(code) {
+  const t = T[code];
+  if (!t) return;
+
+  // Direction & lang attr
+  document.documentElement.setAttribute('dir', t.dir);
+  document.documentElement.setAttribute('lang', t.lang);
+
+  // Translate all elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+
+  // Active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === code);
+  });
+}
+
+// Init
+setLang('en');
+</script>
+</body>
+</html>
