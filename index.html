@@ -1124,6 +1124,11 @@ function setLang(code) {
   });
 
   localStorage.setItem('mizan_lang', code);
+
+  // Update calculator links with lang param
+  document.querySelectorAll('a[href*="costs.html"]').forEach(a => {
+    a.href = 'costs.html?lang=' + code;
+  });
 }
 
 // Init
