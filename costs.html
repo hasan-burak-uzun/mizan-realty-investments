@@ -64,10 +64,18 @@
     .table-wrap { padding: 0 5vw 60px; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07); font-size: 0.875rem; }
     thead { background: var(--navy); color: #fff; }
-    th { padding: 14px 16px; text-align: left; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.7px; text-transform: uppercase; white-space: nowrap; cursor: pointer; user-select: none; }
+    th {
+      padding: 14px 16px; text-align: left; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.7px; text-transform: uppercase; white-space: nowrap;
+      cursor: pointer; user-select: none; position: relative;
+      transition: background 0.15s;
+    }
+    th.sortable::after { content: " ↕"; color: rgba(201,168,76,0.45); font-size: 0.85em; }
     th:hover { background: var(--navy2); }
-    th.sorted-asc::after { content: " ↑"; color: var(--gold); }
+    th:hover::after { color: var(--gold); }
+    th.sorted-asc::after  { content: " ↑"; color: var(--gold); }
     th.sorted-desc::after { content: " ↓"; color: var(--gold); }
+    th.sorted-asc, th.sorted-desc { background: var(--navy2); border-bottom: 2px solid var(--gold); }
     td { padding: 12px 16px; border-bottom: 1px solid #F3F4F6; white-space: nowrap; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #FAFBFD; }
@@ -252,15 +260,15 @@
   <table id="stateTable">
     <thead>
       <tr>
-        <th onclick="sortTable(0)">State</th>
-        <th onclick="sortTable(1)">Prop Tax Rate</th>
-        <th onclick="sortTable(2)">Annual Prop Tax</th>
-        <th onclick="sortTable(3)">Closing Costs</th>
-        <th onclick="sortTable(4)">Est. Closing $</th>
-        <th onclick="sortTable(5)">Annual Mgmt Fee</th>
-        <th onclick="sortTable(6)">State Income Tax</th>
-        <th onclick="sortTable(7)">Landlord Laws</th>
-        <th>Investor Score</th>
+        <th class="sortable" onclick="sortTable(0)">State</th>
+        <th class="sortable" onclick="sortTable(1)">Prop Tax Rate</th>
+        <th class="sortable" onclick="sortTable(2)">Annual Prop Tax</th>
+        <th class="sortable" onclick="sortTable(3)">Closing Costs</th>
+        <th class="sortable" onclick="sortTable(4)">Est. Closing $</th>
+        <th class="sortable" onclick="sortTable(5)">Annual Mgmt Fee</th>
+        <th class="sortable" onclick="sortTable(6)">State Income Tax</th>
+        <th class="sortable" onclick="sortTable(7)">Landlord Laws</th>
+        <th class="sortable" onclick="sortTable(8)">Investor Score</th>
         <th>Notes</th>
       </tr>
     </thead>
@@ -396,7 +404,7 @@ function incomeTaxPill(rate, none) {
   return `<span class="pill pill-red">${rate}%</span>`;
 }
 
-function scoreHTML(state) {
+function calcScore(state) {
   let score = 0;
   if (state.tax < 0.75) score += 2;
   else if (state.tax < 1.5) score += 1;
@@ -405,6 +413,11 @@ function scoreHTML(state) {
   if (state.landlord === 'High') score += 2;
   else if (state.landlord === 'Medium') score += 1;
   if (state.closeLow < 2.5) score += 1;
+  return score;
+}
+
+function scoreHTML(state) {
+  let score = calcScore(state);
 
   const max = 7;
   const color = score >= 5 ? 'green' : score >= 3 ? 'yellow' : 'red';
@@ -438,6 +451,7 @@ function buildTable() {
       case 5: av = annualMgmt; bv = annualMgmt; break;
       case 6: av = a.incomeTax; bv = b.incomeTax; break;
       case 7: av = a.landlord; bv = b.landlord; break;
+      case 8: av = calcScore(a); bv = calcScore(b); break;
       default: av = a.tax; bv = b.tax;
     }
     if (typeof av === 'string') return sortDir * av.localeCompare(bv);
