@@ -736,6 +736,8 @@ function setLang(code) {
     btn.classList.toggle('active', btn.textContent.toLowerCase() === code);
   });
 
+  localStorage.setItem('mizan_lang', code);
+
   buildTable();
 }
 

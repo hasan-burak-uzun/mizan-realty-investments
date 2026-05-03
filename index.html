@@ -1131,8 +1131,9 @@ function setLang(code) {
   });
 }
 
-// Init
-setLang('en');
+// Init — restore saved language or default to English
+const _saved = localStorage.getItem('mizan_lang');
+setLang(['en','tr','ar','ur'].includes(_saved) ? _saved : 'en');
 </script>
 </body>
 </html>
